@@ -16,7 +16,21 @@ class SQLObject
   end
 
   def self.table_name
-    # ...
+    table_name = self.to_s
+    table_name = table_name[0].downcase + table_name[1..-1]
+    snake = ""
+    first, last = 0, 0
+    table_name.each_char.with_index do |char,i|
+      if char == char.upcase
+        snake += table_name[first..last].downcase + "_"
+        first = i
+      else
+        last = i
+      end
+      last = i
+    end
+    snake += table_name[first..last].downcase + "s"
+    snake
   end
 
   def self.all
